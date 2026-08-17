@@ -58,17 +58,18 @@ Two surfaces share one React build: the authenticated **owner dashboard** and th
 
 ```mermaid
 flowchart TD
-    O[Owner dashboard] -->|build + send quote| API[(Express API)]
-    API -->|tokenized link| C[Client approval page]
-    C -->|toggle items / sign| API
-    C -->|card via Stripe Elements| S[Stripe]
-    S -. payment_intent.succeeded .-> WH[/webhooks/stripe/]
-    WH -->|insert eventId UNIQUE = idempotent| LOG[(webhookEvents)]
-    WH --> SM{State machine}
-    SM -->|signature exists?| SM
-    SM -->|mark paid + deposit_paid| DB[(MongoDB)]
-    SM -->|create once| INV[Balance invoice]
-    SM -->|enqueue| MAIL[Email both sides]
+    O["Owner dashboard"] -->|"build + send quote"| API[("Express API")]
+    API -->|"tokenized link"| C["Client approval page"]
+    C -->|"toggle items / sign"| API
+    C -->|"card via Stripe Elements"| S["Stripe"]
+    S -. "payment_intent.succeeded" .-> WH["POST /webhooks/stripe"]
+    WH -->|"insert eventId UNIQUE = idempotent"| LOG[("webhookEvents")]
+    WH --> GATE{"Signature on file?"}
+    GATE -->|"no — log anomaly E4"| STOP["Refuse to advance"]
+    GATE -->|"yes"| SM["State machine"]
+    SM -->|"mark paid + deposit_paid"| DB[("MongoDB")]
+    SM -->|"create once"| INV["Balance invoice"]
+    SM -->|"enqueue"| MAIL["Email both sides"]
 ```
 
 The browser's Stripe result is treated as advisory ("Confirming payment…"); the authoritative `deposit_paid` transition, balance invoice, and notifications are produced by the webhook handler. Duplicate/retried deliveries hit a unique index on `webhookEvents.eventId` and become no-ops.
