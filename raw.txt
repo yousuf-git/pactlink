@@ -1,0 +1,23 @@
+PactLink
+
+Quote-to-Deposit System for Service Businesses
+Portfolio pitch: "A quoting tool that turns an estimate into a signed agreement and a paid deposit in one link — no back-and-forth, no chasing."
+Pain point: Contractors, agencies, photographers, event/AV companies, consultants. They build quotes in Word/Google Docs, email a PDF, then chase the client for approval and a deposit by separate invoice. Deals stall in the gap. They pay to compress "quote sent → money in account" into one flow. This is one of the most repeated Upwork briefs ("estimate system," "quote to invoice," "proposal with payment").
+Core features:
+
+Quote builder with line items, taxes, optional/tiered items the client can toggle
+Branded PDF generation + a hosted, shareable approval link
+Typed/drawn e-signature with timestamp + IP capture
+Stripe deposit (fixed or %) charged on approval, balance invoice generated automatically
+Status pipeline: draft → sent → viewed → approved → deposit paid
+Webhook-driven email notifications to both sides
+
+Technical differentiator: The state machine tying signature → conditional Stripe charge → balance invoice, driven by Stripe webhooks (not client-side success callbacks). Most tutorial builds trust the redirect; doing it webhook-first is the thing that separates a real payment dev from a copy-paster. For e-sign, use Documenso or DocuSeal (open source) so you're integrating real signing infra, not faking it.
+Case study framing (with seeded data): Show a funnel — "quotes viewed vs. approved vs. deposit-paid" — and instrument time-to-approval. Frame it as "collapses a 3-tool workflow (Docs + DocuSign + Stripe invoice) into one." Show the webhook event log as proof of correctness.
+
+---
+
+Tech: MERN
+Backend: yes
+signup: no		, only login/sandbox
+pricing: contact for early access

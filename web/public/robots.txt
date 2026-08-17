@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /q/
+
+Sitemap: https://pactlink.app/sitemap.xml

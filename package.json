@@ -1,0 +1,37 @@
+{
+  "name": "pactlink",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PactLink — quote-to-deposit SaaS (MERN). Monorepo root.",
+  "author": "Muhammad Yousuf (https://github.com/yousuf-git)",
+  "homepage": "https://pactlink.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yousuf-git/pactlink.git"
+  },
+  "_developer": {
+    "name": "Muhammad Yousuf",
+    "github": "https://github.com/yousuf-git",
+    "portfolio": "https://yousuf-dev.com"
+  },
+  "workspaces": [
+    "api",
+    "web"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "dev:api": "npm run dev --workspace api",
+    "dev:web": "npm run dev --workspace web",
+    "build": "npm run build --workspaces --if-present",
+    "build:api": "npm run build --workspace api",
+    "build:web": "npm run build --workspace web",
+    "test": "npm run test --workspaces --if-present",
+    "test:api": "npm run test --workspace api",
+    "seed": "npm run seed --workspace api",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

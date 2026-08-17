@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --scrollbar-thumb: #c2d0db;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background text-text-primary font-sans antialiased;
+  font-feature-settings: "cv11", "ss01";
+  text-rendering: optimizeLegibility;
+}
+
+/* Mono money columns + ids use tabular figures so digits align. */
+.font-mono {
+  font-feature-settings: "tnum", "zero";
+}
+
+h1, h2, h3, h4 {
+  @apply font-display;
+}
+
+/* Thin themed scrollbar (global, hidden on dashboard via .no-scrollbar). */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5fa8d3;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@layer components {
+  .container-site {
+    @apply w-[90vw] max-w-site mx-auto;
+  }
+  .container-dashboard {
+    @apply w-full max-w-dashboard mx-auto;
+  }
+  /* Focus ring matching FED: #1B4965 2px */
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 focus-visible:ring-offset-surface;
+  }
+  /* Editorial blueprint grid backdrop for public marketing pages (mirrors Hero). */
+  .bp-grid {
+    background-image:
+      linear-gradient(to right, rgba(22, 24, 28, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(22, 24, 28, 0.035) 1px, transparent 1px);
+    background-size: 46px 46px;
+  }
+  /* Internal faint grid for dark "ink panel" emphasis blocks (mirrors Hero card). */
+  .ink-panel-grid {
+    background-image:
+      linear-gradient(to right, rgba(242, 240, 235, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(242, 240, 235, 0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* ── Editorial button system (sharp, premium fill-on-hover) ───────────── */
+  /* Colors written as plain CSS (not @apply) so custom-color borders resolve
+     reliably in JIT regardless of what's used in content. */
+  /* A skewed ::before sweeps across on hover. z-index -1 keeps it above the
+     base background but below the in-flow label/icon (thanks to isolation). */
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2.5 whitespace-nowrap px-7 py-3.5 font-grotesk text-sm font-medium;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transition: color 0.45s ease, border-color 0.45s ease;
+  }
+  .btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -32px;
+    width: 0;
+    z-index: -1;
+    transform: skewX(-18deg);
+    transform-origin: left;
+    transition: width 0.5s ease;
+  }
+  .btn:hover:not(:disabled)::before {
+    width: 165%;
+  }
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  .btn-sm {
+    @apply gap-2 px-4 py-2 text-[13px];
+  }
+  /* Outlined → ink swipe fills behind the label (medium-importance CTAs). */
+  .btn-outline {
+    border: 1px solid #16181c;
+    background: transparent;
+    color: #16181c;
+  }
+  .btn-outline::before {
+    background: #16181c;
+  }
+  .btn-outline:hover:not(:disabled) {
+    color: #f2f0eb;
+  }
+  /* Solid ink → warm glow swipe, label flips to ink (high-importance CTAs). */
+  .btn-solid {
+    border: 1px solid #16181c;
+    background: #16181c;
+    color: #f2f0eb;
+  }
+  .btn-solid::before {
+    background: #c99a4b;
+  }
+  .btn-solid:hover:not(:disabled) {
+    color: #16181c;
+    border-color: #c99a4b;
+  }
+  /* On dark panels — solid paper, warm glow swipe. */
+  .btn-on-ink {
+    border: 1px solid #f2f0eb;
+    background: #f2f0eb;
+    color: #16181c;
+  }
+  .btn-on-ink::before {
+    background: #c99a4b;
+  }
+  .btn-on-ink:hover:not(:disabled) {
+    color: #16181c;
+    border-color: #c99a4b;
+  }
+  /* On dark panels — outlined paper, paper swipe, label flips to ink. */
+  .btn-outline-on-ink {
+    border: 1px solid rgba(242, 240, 235, 0.4);
+    background: transparent;
+    color: #f2f0eb;
+  }
+  .btn-outline-on-ink::before {
+    background: #f2f0eb;
+  }
+  .btn-outline-on-ink:hover:not(:disabled) {
+    color: #16181c;
+    border-color: #f2f0eb;
+  }
+}
+
+/* Stripe Elements + payment card grain accent for the approval page. */
+.paper-card {
+  background:
+    linear-gradient(180deg, #ffffff 0%, #fcfdfe 100%);
+}
+
+/* Hide native number input spinners for money inputs. */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}

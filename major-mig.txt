@@ -1,0 +1,55 @@
+=========== UI
+use same logo on login and sandbox page, that's there in footer and in navbar
+smooth animation on nav close and open
+
+>> Overall
+- Notifications
+- select drop down UI
+- paginations (total count, curr view count, page size control, etc.)
+- platform should allow user to reuse the existing invoice untill its paid completely. for now we have feature of percentage, so suppose if user selected 50%, then in pipeline it should show that specific 50% is paid and rest can be requested, again either full or portion, percentage or fixed. so adapt both FE and BE for it and make sure the UX on respective pages should reflect this.
+
+>> Owner Panel
+
+> Quote Page
+- while creating items in line items view show empty state with a friendly msg like add your first item, and below the item's section add a button like add more.
+- make the rearrangement functional
+- changing description doesn't refelct in preview. neither being shown in live link
+- the optional items check and uncheck behavior should be functional in preview
+- Tiered Items Bad UX
+    Context:
+    	Tiered — items share a tierGroup; selecting one deselects the others in that group. The client must choose exactly one per group (signing is blocked if a tiered group is left unselected). That's why, in the builder, a tiered item needs a tier group name (the field that appears for tiered rows) — it's what binds the mutually-exclusive options together.
+    Issue: The UI/UX doesn't convey this info, neither the preview shows it
+    
+- in sandbox if user created a quote and tries to redirect to client link, the page shows "This link isn't valid" error
+- pdf download not working anywhere
+- in sandbox existing quotes, in 1st quote that has title "Personal Brand Identity & Site" , add all 3 kind of items
+	1. one simple item
+	2. one optional item
+	3. two tiers having 2 items in each (in UI the tieres/groups should feel separated)
+	
+	purpose: so that user can see how all these will look in preview
+
+- in client link, the "Pay the deposit" section still has old theme, should be consistent as per our new theme
+
+>> Admin Panel
+> User
+- should be able to create new users
+- when user is clicked, in side panel show the stats only and account controls like disable account, suspend account, reset password, change plan (should ask for confirmation before each and keep the panel open after the action)
+along with count of clients and quotes, add a redirect arrow that'll lead to quotes/clients page with data filtered for that user only. for now we have quotes page only on which data is not being displayed so fix it and add clients list page. and adapt both of them so that redirect from users details view panel should be handled there
+
+- Recent activity should show recent 5 logs, and a redirect arrow that leads to logs page with logs of that user filtered
+
+========= Backend
+> Stripe should be for sandbox but switching to live should have minimal steps
+what I'm thinking for now is:
+- client pays (with dummy card)
+- money in stripe sandbox, reflected on platform admin dashboard as well here
+- when user initiates a sanbox, we also create respective customer in stripe, with using test bank routing numbers (110000000), or if admin creates a new user, by default assign it the same test bank number.
+- when invoice paid by client, hold the money for 1 hr and then auto send the money to that customer, kind of payout simulation
+- platform admin sees that holding amounts, and all transactions related stuff and analytics as well
+
+
+
+
+
+

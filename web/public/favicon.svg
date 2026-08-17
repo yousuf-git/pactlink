@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- PactLink short mark: "P." set in Bricolage Grotesque Bold, outlined to paths. -->
+  <rect width="64" height="64" rx="14" fill="#16181C"/>
+  <g transform="translate(6.4 50.6) scale(0.05758)">
+    <path fill="#F2F0EB" d="M174 -186V-299H325Q397 -299 433 -328.5Q469 -358 469 -426Q469 -486 435.5 -517.5Q402 -549 332 -549H174V-660H336Q400 -660 451.5 -645Q503 -630 539.5 -600.5Q576 -571 595 -526.5Q614 -482 614 -422Q614 -345 579 -292.5Q544 -240 475.5 -213Q407 -186 305 -186ZM73 0V-660H217V0Z"/>
+    <path fill="#C99A4B" d="M722 13Q675 13 651.5 -7Q628 -27 628 -69Q628 -112 651.5 -132Q675 -152 722 -152Q770 -152 793.5 -132Q817 -112 817 -69Q817 13 722 13Z"/>
+  </g>
+</svg>
